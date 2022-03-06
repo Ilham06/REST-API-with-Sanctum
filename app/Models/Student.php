@@ -13,7 +13,7 @@ class Student extends Model
 
     public function course()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class)->withPivot(['periode','semester','score'])->withTimeStamps();
     }
 
 }
