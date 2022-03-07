@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +11,17 @@ use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
+    public function index()
+    {
+        $students = Student::all();
+        $data = StudentResource::collection($students);
+
+        return response()->json([
+            'message' => 'Daftar Mahasiswa',
+            'data' => $data
+        ]);
+    }
+
     public function create(Request $request)
     {
         $data = Validator::make($request->all(), [
@@ -32,7 +44,7 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        $student = Student::find($id);
+        $student = Student::with('course')->find($id);
 
         if (!$student) {
             return response()->json([

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:sanctum'], function(){
 
     // student crud
+    Route::get('/', [StudentController::class, 'index']);
     Route::post('/create', [StudentController::class, 'create']);
     Route::get('/show/{id}', [StudentController::class, 'show']);
     Route::post('/update/{id}', [StudentController::class, 'update']);
@@ -39,4 +40,3 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 });
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/', [AuthController::class, 'index']);
